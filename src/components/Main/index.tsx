@@ -29,25 +29,51 @@ export const Main = () => {
 };
 
 const Wrap = styled.div`
+  @font-face {
+    font-family: "BRRA_R";
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.2/BRRA_R.woff")
+      format("woff");
+    font-weight: normal;
+    font-style: normal;
+  }
   text-align: center;
+  /* border: 1px solid; */
+  background-color: #fffffb9e;
+  h2 {
+    font-family: "BRRA_R";
+  }
 `;
 
 const Score = styled.div`
+  /* border: 1px solid red; */
+  padding: 1em;
   display: flex;
   flex-direction: column;
   .scoreNum {
-    font-size: 60px;
+    @font-face {
+      font-family: "SDSamliphopangche_Outline";
+      src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/SDSamliphopangche_Outline.woff")
+        format("woff");
+      font-weight: normal;
+      font-style: normal;
+    }
+    font-size: 80px;
+    font-family: "SDSamliphopangche_Outline";
+    color: #3e3e3e;
   }
   span {
-    font-size: 30px;
+    font-size: 20px;
+    padding: 5px;
+    font-family: "BRRA_R";
   }
 `;
 
 const KittyGroup = styled.div`
+  /* border: 1px solid green; */
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 3em;
+  padding: 2em;
 `;
 
 const Kitty = styled.img`
