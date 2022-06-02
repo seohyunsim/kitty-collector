@@ -1,28 +1,59 @@
-import styled from "styled-components";
-import { CgArrowLeftR, CgArrowRightR } from "react-icons/cg";
+import styled, { keyframes, css } from "styled-components";
 import { TbArrowBigLeft, TbArrowBigRight } from "react-icons/tb";
+import { useState } from "react";
 
 export const Main = () => {
+  const [score, setScore] = useState<number>(0);
+
   const ImageUrl =
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAIaro9NdPhttKXZ12oRy7smHDKl_bULANjA&usqp=CAU";
+
+  const ImgSrc =
+    "https://cdn.pixabay.com/photo/2013/07/12/15/40/cat-150306_960_720.png";
+
+  const onLeftArrowClick = () => {
+    setScore(score + 1);
+    return rotateKitty;
+  };
+
+  const onRightArrowClick = () => {
+    setScore(score + 1);
+  };
+
+  const rotateKitty = keyframes`
+   from {
+    transform : translateX(0);
+  }to {
+    transform : translateX(-3em);
+  }
+`;
+
   return (
     <Wrap>
       <h2>kitty collector</h2>
       <Score>
-        <div className="scoreNum">0</div>
+        <div className="scoreNum">{score}</div>
         <span>score</span>
       </Score>
       <KittyGroup>
-        <Kitty src={ImageUrl} />
-        <Kitty src={ImageUrl} />
-        <Kitty src={ImageUrl} />
-        <Kitty src={ImageUrl} />
-        <Kitty src={ImageUrl} />
-        <Kitty src={ImageUrl} />
+        <div className="Kittys">
+          <Kitty src={ImageUrl} />
+          <Kitty src={ImgSrc} />
+          <Kitty src={ImgSrc} />
+          <Kitty src={ImageUrl} />
+          <Kitty src={ImgSrc} />
+          <Kitty src={ImageUrl} />
+        </div>
       </KittyGroup>
       <ArrowWrap>
-        <TbArrowBigLeft />
-        <TbArrowBigRight />
+        <LeftArrow>
+          <img src={ImageUrl} />
+          <TbArrowBigLeft onClick={onLeftArrowClick} />
+        </LeftArrow>
+        <RightArrow>
+          <img src={ImgSrc} />
+          <TbArrowBigRight onClick={onRightArrowClick} />
+        </RightArrow>
       </ArrowWrap>
     </Wrap>
   );
@@ -70,10 +101,23 @@ const Score = styled.div`
 
 const KittyGroup = styled.div`
   /* border: 1px solid green; */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   padding: 2em;
+  .Kittys {
+    /* border: 1px solid; */
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+  }
+`;
+
+const rotateKitty = keyframes`
+   from {
+    transform : translateX(0);
+  }to {
+    transform : translateX(-3em);
+  }
 `;
 
 const Kitty = styled.img`
@@ -87,5 +131,28 @@ const ArrowWrap = styled.div`
   display: flex;
   justify-content: space-around;
   position: absolute;
-  top: 80%;
+  top: 75%;
+  svg {
+    cursor: pointer;
+  }
+`;
+
+const LeftArrow = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  img {
+    width: 50px;
+  }
+`;
+
+const RightArrow = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  img {
+    width: 37px;
+  }
 `;
