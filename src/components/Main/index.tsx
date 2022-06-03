@@ -123,6 +123,7 @@ const rotateKitty = keyframes`
 const Kitty = styled.img`
   width: 60px;
   margin-top: -1em;
+  animation: ${rotateKitty} 0.8s;
 `;
 
 const ArrowWrap = styled.div`
