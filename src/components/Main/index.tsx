@@ -5,11 +5,20 @@ import { useState } from "react";
 export const Main = () => {
   const [score, setScore] = useState<number>(0);
 
-  const ImageUrl =
+  const blackKitty =
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAIaro9NdPhttKXZ12oRy7smHDKl_bULANjA&usqp=CAU";
 
-  const ImgSrc =
+  const whiteKitty =
     "https://cdn.pixabay.com/photo/2013/07/12/15/40/cat-150306_960_720.png";
+
+  const kittys: string[] = [
+    blackKitty,
+    whiteKitty,
+    whiteKitty,
+    blackKitty,
+    whiteKitty,
+    blackKitty,
+  ];
 
   const onLeftArrowClick = () => {
     setScore(score + 1);
@@ -37,21 +46,18 @@ export const Main = () => {
       </Score>
       <KittyGroup>
         <div className="Kittys">
-          <Kitty src={ImageUrl} />
-          <Kitty src={ImgSrc} />
-          <Kitty src={ImgSrc} />
-          <Kitty src={ImageUrl} />
-          <Kitty src={ImgSrc} />
-          <Kitty src={ImageUrl} />
+          {kittys.reverse().map((url, idx) => {
+            return <Kitty key={idx} src={url} />;
+          })}
         </div>
       </KittyGroup>
       <ArrowWrap>
         <LeftArrow>
-          <img src={ImageUrl} />
+          <img src={blackKitty} />
           <TbArrowBigLeft onClick={onLeftArrowClick} />
         </LeftArrow>
         <RightArrow>
-          <img src={ImgSrc} />
+          <img src={whiteKitty} />
           <TbArrowBigRight onClick={onRightArrowClick} />
         </RightArrow>
       </ArrowWrap>
