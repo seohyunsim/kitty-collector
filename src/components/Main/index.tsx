@@ -18,37 +18,20 @@ export const Main = () => {
     whiteKitty,
   ]);
 
-  const kittysList: React.ReactNode = kittys.reverse().map((url, idx) => {
-    return <Kitty key={idx} src={url} />;
-  });
-
-  console.log(kittys);
-
   const onLeftArrowClick = (e: React.MouseEvent<SVGElement>) => {
     const kittyId = (e.target as SVGElement).id;
+
     if (kittyId === kittys[4]) {
-      console.log("똑같음!", kittyId);
-      kittys.splice(4, 1);
-      setKittys(kittys);
-      return kittys;
+      setKittys(kittys.splice(0, 4));
+      console.log("똑같음!", kittys);
     } else {
       console.log("다름~", kittyId, kittys[4]);
     }
-    console.log(kittys);
-    return rotateKitty;
   };
 
   const onRightArrowClick = () => {
     setScore(score + 1);
   };
-
-  const rotateKitty = keyframes`
-   from {
-    transform : translateX(0);
-  }to {
-    transform : translateX(-3em);
-  }
-`;
 
   return (
     <Wrap>
@@ -58,7 +41,11 @@ export const Main = () => {
         <span>score</span>
       </Score>
       <KittyGroup>
-        <div className="Kittys">{kittysList}</div>
+        <div className="Kittys">
+          {kittys.reverse().map((url, idx) => {
+            return <Kitty key={idx} src={url} />;
+          })}
+        </div>
       </KittyGroup>
       <ArrowWrap>
         <LeftArrow>
