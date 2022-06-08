@@ -9,6 +9,13 @@ export const Main = () => {
   const whiteKitty =
     "https://cdn.pixabay.com/photo/2013/07/12/15/40/cat-150306_960_720.png";
 
+  const randomKitty: string[] = [
+    "blackKitty",
+    "whiteKitty",
+    "whiteKitty",
+    "blackKitty",
+    "whiteKitty",
+  ];
   const [score, setScore] = useState<number>(0);
   const [kittys, setKittys] = useState<string[]>([
     blackKitty,
@@ -18,11 +25,16 @@ export const Main = () => {
     whiteKitty,
   ]);
 
+  const getRandomState = Math.floor(Math.random() * randomKitty.length);
+
+  console.log("랜덤배열: ", randomKitty[getRandomState]);
+
   const onLeftArrowClick = (e: React.MouseEvent<SVGElement>) => {
     const kittyId = (e.target as SVGElement).id;
 
     if (kittyId === kittys[4]) {
       setKittys(kittys.splice(0, 4));
+      setScore(score + 1);
       console.log("똑같음!", kittys);
     } else {
       console.log("다름~", kittyId, kittys[4]);
