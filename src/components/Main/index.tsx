@@ -1,48 +1,38 @@
-import styled, { keyframes, css } from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { TbArrowBigLeft, TbArrowBigRight } from "react-icons/tb";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 export const Main = () => {
   const blackKitty =
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAIaro9NdPhttKXZ12oRy7smHDKl_bULANjA&usqp=CAU";
-
   const whiteKitty =
     "https://cdn.pixabay.com/photo/2013/07/12/15/40/cat-150306_960_720.png";
 
-  const randomKitty: string[] = [
-    "blackKitty",
-    "whiteKitty",
-    "whiteKitty",
-    "blackKitty",
-    "whiteKitty",
-  ];
+  const randomKitty = [blackKitty, whiteKitty];
   const [score, setScore] = useState<number>(0);
   const [kittys, setKittys] = useState<string[]>([
     blackKitty,
-    whiteKitty,
+    blackKitty,
     whiteKitty,
     blackKitty,
     whiteKitty,
   ]);
 
-  const getRandomState = Math.floor(Math.random() * randomKitty.length);
+  //추가 배열 값 랜덤 생성
+  const getRandomState = (array: string[]) => {
+    const random = Math.floor(Math.random() * array.length);
+    return array[random];
+  };
+  const pushNewState = getRandomState(randomKitty);
 
-  console.log("랜덤배열: ", randomKitty[getRandomState]);
-
-  const onLeftArrowClick = (e: React.MouseEvent<SVGElement>) => {
+  const onArrowClick = (e: React.MouseEvent<SVGElement>) => {
     const kittyId = (e.target as SVGElement).id;
 
     if (kittyId === kittys[4]) {
-      setKittys(kittys.splice(0, 4));
+      kittys.splice(4, 1);
+      kittys.unshift(pushNewState);
       setScore(score + 1);
-      console.log("똑같음!", kittys);
-    } else {
-      console.log("다름~", kittyId, kittys[4]);
     }
-  };
-
-  const onRightArrowClick = () => {
-    setScore(score + 1);
   };
 
   return (
@@ -54,7 +44,7 @@ export const Main = () => {
       </Score>
       <KittyGroup>
         <div className="Kittys">
-          {kittys.reverse().map((url, idx) => {
+          {kittys.map((url, idx) => {
             return <Kitty key={idx} src={url} />;
           })}
         </div>
@@ -62,13 +52,13 @@ export const Main = () => {
       <ArrowWrap>
         <LeftArrow>
           <img src={blackKitty} />
-          <TbArrowBigLeft onClick={onLeftArrowClick} id={blackKitty}>
+          <TbArrowBigLeft onClick={onArrowClick} id={blackKitty}>
             {blackKitty}
           </TbArrowBigLeft>
         </LeftArrow>
         <RightArrow>
           <img src={whiteKitty} />
-          <TbArrowBigRight onClick={onRightArrowClick} />
+          <TbArrowBigRight onClick={onArrowClick} id={whiteKitty} />
         </RightArrow>
       </ArrowWrap>
     </Wrap>
@@ -139,7 +129,7 @@ const rotateKitty = keyframes`
 const Kitty = styled.img`
   width: 60px;
   margin-top: -1em;
-  animation: ${rotateKitty} 0.8s;
+  /* animation: ${rotateKitty} 0.8s; */
 `;
 
 const ArrowWrap = styled.div`
