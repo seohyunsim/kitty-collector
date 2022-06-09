@@ -1,21 +1,20 @@
 import styled, { keyframes } from "styled-components";
-import { TbArrowBigLeft, TbArrowBigRight } from "react-icons/tb";
 import React, { useState } from "react";
 
 export const Main = () => {
-  const blackKitty =
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAIaro9NdPhttKXZ12oRy7smHDKl_bULANjA&usqp=CAU";
-  const whiteKitty =
-    "https://cdn.pixabay.com/photo/2013/07/12/15/40/cat-150306_960_720.png";
+  const greyKitty =
+    "https://deciduous-petalite-828.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fbc1ba5b8-4dc2-40f8-8e20-61152e968c23%2F22.png?table=block&id=6fae8800-4fd0-4e00-8ac5-4a5c8044c3e9&spaceId=757517fd-f82c-4a1d-8b05-6567709f4aa0&width=2000&userId=&cache=v2";
+  const brownKitty =
+    "https://deciduous-petalite-828.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fc34409a7-0239-4aa2-97d5-60ded89645f7%2F11.png?table=block&id=b2b0aa9f-4fe4-479a-8481-e5604c55d7cd&spaceId=757517fd-f82c-4a1d-8b05-6567709f4aa0&width=2000&userId=&cache=v2";
 
-  const randomKitty = [blackKitty, whiteKitty];
+  const randomKitty = [greyKitty, brownKitty];
   const [score, setScore] = useState<number>(0);
   const [kittys, setKittys] = useState<string[]>([
-    blackKitty,
-    blackKitty,
-    whiteKitty,
-    blackKitty,
-    whiteKitty,
+    greyKitty,
+    greyKitty,
+    brownKitty,
+    greyKitty,
+    brownKitty,
   ]);
 
   //추가 배열 값 랜덤 생성
@@ -25,13 +24,16 @@ export const Main = () => {
   };
   const pushNewState = getRandomState(randomKitty);
 
-  const onArrowClick = (e: React.MouseEvent<SVGElement>) => {
-    const kittyId = (e.target as SVGElement).id;
+  const onArrowClick = (e: React.MouseEvent<HTMLImageElement>) => {
+    e.preventDefault();
+    const kittyId = (e.target as HTMLImageElement).id;
 
     if (kittyId === kittys[4]) {
       kittys.splice(4, 1);
       kittys.unshift(pushNewState);
       setScore(score + 1);
+    } else {
+      console.log("다름~");
     }
   };
 
@@ -51,14 +53,20 @@ export const Main = () => {
       </KittyGroup>
       <ArrowWrap>
         <LeftArrow>
-          <img src={blackKitty} />
-          <TbArrowBigLeft onClick={onArrowClick} id={blackKitty}>
-            {blackKitty}
-          </TbArrowBigLeft>
+          <img src={greyKitty} />
+          <img
+            onClick={onArrowClick}
+            id={greyKitty}
+            src="https://deciduous-petalite-828.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F9e83368a-70ea-420e-ade2-01056a7d1831%2Fleft.png?table=block&id=f4616461-b0dc-4967-954b-506da84b6ef6&spaceId=757517fd-f82c-4a1d-8b05-6567709f4aa0&width=1020&userId=&cache=v2"
+          />
         </LeftArrow>
         <RightArrow>
-          <img src={whiteKitty} />
-          <TbArrowBigRight onClick={onArrowClick} id={whiteKitty} />
+          <img src={brownKitty} />
+          <img
+            onClick={onArrowClick}
+            id={brownKitty}
+            src="https://deciduous-petalite-828.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F04ed97e2-12c3-4629-89f3-06b8db004bbf%2Fnext.png?table=block&id=f1f3e603-0035-4f4b-918f-4f423b26c322&spaceId=757517fd-f82c-4a1d-8b05-6567709f4aa0&width=1020&userId=&cache=v2"
+          />
         </RightArrow>
       </ArrowWrap>
     </Wrap>
@@ -107,9 +115,8 @@ const Score = styled.div`
 
 const KittyGroup = styled.div`
   /* border: 1px solid green; */
-  padding: 2em;
   .Kittys {
-    /* border: 1px solid; */
+    padding: 2.5em;
     width: 40%;
     display: flex;
     flex-direction: column;
@@ -127,8 +134,8 @@ const rotateKitty = keyframes`
 `;
 
 const Kitty = styled.img`
-  width: 60px;
-  margin-top: -1em;
+  width: 90px;
+  margin-top: -23px;
   /* animation: ${rotateKitty} 0.8s; */
 `;
 
@@ -150,7 +157,10 @@ const LeftArrow = styled.div`
   align-items: center;
   gap: 10px;
   img {
-    width: 50px;
+    width: 60px;
+  }
+  .leftArrow {
+    background-color: yellow;
   }
 `;
 
@@ -160,6 +170,9 @@ const RightArrow = styled.div`
   align-items: center;
   gap: 10px;
   img {
-    width: 37px;
+    width: 60px;
+  }
+  .rightArrow {
+    background-color: green;
   }
 `;
