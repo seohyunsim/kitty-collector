@@ -39,7 +39,9 @@ export const Main = () => {
 
   return (
     <Wrap>
-      <h2>kitty collector</h2>
+      <div className="title">
+        <h2>kitty collector</h2>
+      </div>
       <Score>
         <div className="scoreNum">{score}</div>
         <span>score</span>
@@ -53,16 +55,18 @@ export const Main = () => {
       </KittyGroup>
       <ArrowWrap>
         <LeftArrow>
-          <img src={greyKitty} />
+          <img alt="greyKitty" src={greyKitty} />
           <img
+            alt="leftArrow"
             onClick={onArrowClick}
             id={greyKitty}
             src="https://deciduous-petalite-828.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F9e83368a-70ea-420e-ade2-01056a7d1831%2Fleft.png?table=block&id=f4616461-b0dc-4967-954b-506da84b6ef6&spaceId=757517fd-f82c-4a1d-8b05-6567709f4aa0&width=1020&userId=&cache=v2"
           />
         </LeftArrow>
         <RightArrow>
-          <img src={brownKitty} />
+          <img alt="brownKitty" src={brownKitty} />
           <img
+            alt="rightArrow"
             onClick={onArrowClick}
             id={brownKitty}
             src="https://deciduous-petalite-828.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F04ed97e2-12c3-4629-89f3-06b8db004bbf%2Fnext.png?table=block&id=f1f3e603-0035-4f4b-918f-4f423b26c322&spaceId=757517fd-f82c-4a1d-8b05-6567709f4aa0&width=1020&userId=&cache=v2"
@@ -74,23 +78,20 @@ export const Main = () => {
 };
 
 const Wrap = styled.div`
-  @font-face {
-    font-family: "BRRA_R";
-    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.2/BRRA_R.woff")
-      format("woff");
-    font-weight: normal;
-    font-style: normal;
-  }
   text-align: center;
-  /* border: 1px solid; */
-  background-color: #fffffb9e;
-  h2 {
-    font-family: "BRRA_R";
+  .title {
+    padding: 1em;
+    h2 {
+      width: 45%;
+      border-radius: 15px;
+      padding: 12px;
+      background-color: #e6f3ca;
+      margin: 0px auto;
+    }
   }
 `;
 
 const Score = styled.div`
-  /* border: 1px solid red; */
   padding: 1em;
   display: flex;
   flex-direction: column;
@@ -102,19 +103,17 @@ const Score = styled.div`
       font-weight: normal;
       font-style: normal;
     }
-    font-size: 80px;
+    font-size: 85px;
     font-family: "SDSamliphopangche_Outline";
     color: #3e3e3e;
   }
   span {
     font-size: 20px;
     padding: 5px;
-    font-family: "BRRA_R";
   }
 `;
 
 const KittyGroup = styled.div`
-  /* border: 1px solid green; */
   .Kittys {
     padding: 2.5em;
     width: 40%;
@@ -146,9 +145,6 @@ const ArrowWrap = styled.div`
   justify-content: space-around;
   position: absolute;
   top: 75%;
-  svg {
-    cursor: pointer;
-  }
 `;
 
 const LeftArrow = styled.div`
@@ -159,9 +155,6 @@ const LeftArrow = styled.div`
   img {
     width: 60px;
   }
-  .leftArrow {
-    background-color: yellow;
-  }
 `;
 
 const RightArrow = styled.div`
@@ -171,8 +164,5 @@ const RightArrow = styled.div`
   gap: 10px;
   img {
     width: 60px;
-  }
-  .rightArrow {
-    background-color: green;
   }
 `;

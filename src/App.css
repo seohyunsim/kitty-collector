@@ -1,7 +1,17 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
 
+@font-face {
+  font-family: "BRRA_R";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.2/BRRA_R.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
 * {
-  font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto,
-    "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR",
-    "Malgun Gothic", sans-serif;
+  font-family: "BRRA_R";
+}
+
+.App {
+  background-color: #ffffd980;
 }
