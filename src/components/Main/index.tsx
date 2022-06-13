@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import React, { useEffect, useState } from "react";
 
 export const Main = () => {
@@ -13,6 +13,7 @@ export const Main = () => {
 
   const randomKitty = [greyKitty, brownKitty];
   const [score, setScore] = useState<number>(0);
+  const [isIncrease, setIsIncrease] = useState<boolean>(false);
   const [kittys, setKittys] = useState<string[]>([
     greyKitty,
     greyKitty,
@@ -41,14 +42,20 @@ export const Main = () => {
     }
   };
 
+  useEffect(() => {
+    if (score === 0) setIsIncrease(false);
+    else if (score % 10 === 0) setIsIncrease(!isIncrease);
+    else if (score % 10 !== 0) setIsIncrease(false);
+  }, [score]);
+
   return (
     <Wrap>
       <div className="title">
         <h2>kitty collector</h2>
       </div>
       <Score>
-        <ScoreNum scoreColor scoreSize>
-          {score}
+        <ScoreNum>
+          <div className={isIncrease ? "upScore" : "default"}>{score}</div>
         </ScoreNum>
         <span>score</span>
       </Score>
@@ -107,10 +114,15 @@ const Score = styled.div`
   }
 `;
 
-const ScoreNum = styled.div<{
-  scoreColor?: boolean;
-  scoreSize?: boolean;
-}>`
+const bounce = keyframes`
+   from {
+    transform: scale(110%);
+  } to {
+    transform: scale(100%);
+  }
+`;
+
+const ScoreNum = styled.div`
   width: 80%;
   margin: 0 auto;
   @font-face {
@@ -122,10 +134,13 @@ const ScoreNum = styled.div<{
   }
   font-size: 85px;
   font-family: "SDSamliphopangche_Outline";
-  color: ${(props) => (props.scoreColor ? "#353535" : "#cd0000")};
-  &:hover {
-    transform: scale(110%);
-    transition: 0.3s;
+  > .upScore {
+    font-family: "SDSamliphopangche_Outline";
+    animation: ${bounce} 0.5s infinite;
+    color: #cd0000;
+  }
+  > .default {
+    font-family: "SDSamliphopangche_Outline";
   }
 `;
 
@@ -143,7 +158,7 @@ const KittyGroup = styled.div`
 const rotateKitty = keyframes`
    from {
     transform : translateX(0);
-  }to {
+  } to {
     transform : translateX(-3em);
   }
 `;
@@ -151,7 +166,7 @@ const rotateKitty = keyframes`
 const Kitty = styled.img`
   width: 90px;
   margin-top: -23px;
-  /* animation: ${rotateKitty} 0.8s; */
+  animation: ${rotateKitty} 0.8s;
 `;
 
 const ArrowWrap = styled.div`
@@ -165,7 +180,6 @@ const LeftArrow = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
   position: absolute;
   top: 75%;
   right: 75%;
@@ -178,7 +192,6 @@ const RightArrow = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
   position: absolute;
   top: 75%;
   left: 75%;
