@@ -1,4 +1,4 @@
-import styled, { css, keyframes } from "styled-components";
+import styled, { keyframes } from "styled-components";
 import React, { useEffect, useState } from "react";
 
 export const Main = () => {
@@ -29,17 +29,28 @@ export const Main = () => {
   };
   const pushNewState = getRandomState(randomKitty);
 
-  const onArrowClick = (e: React.MouseEvent<HTMLImageElement>) => {
+  const changeKittys = () => {
+    kittys.splice(4, 1);
+    kittys.unshift(pushNewState);
+    setScore(score + 1);
+  };
+
+  const leftPressDown = (e: React.KeyboardEvent<HTMLElement>) => {
+    const keyboard = e.key;
+    if (keyboard) {
+      if (keyboard === "ArrowLeft") {
+        greyKitty === kittys[4] ? changeKittys() : console.log("다름~");
+      } else if (keyboard === "ArrowRight") {
+        brownKitty === kittys[4] ? changeKittys() : console.log("다름~");
+      }
+    }
+  };
+
+  const onArrowClick = (e: React.MouseEvent<HTMLInputElement>) => {
     e.preventDefault();
     const kittyId = (e.target as HTMLImageElement).id;
 
-    if (kittyId === kittys[4]) {
-      kittys.splice(4, 1);
-      kittys.unshift(pushNewState);
-      setScore(score + 1);
-    } else {
-      console.log("다름~");
-    }
+    kittyId === kittys[4] ? changeKittys() : console.log("다름~");
   };
 
   useEffect(() => {
@@ -69,16 +80,20 @@ export const Main = () => {
       <ArrowWrap>
         <LeftArrow>
           <img alt="greyKitty" src={greyKitty} />
-          <img
-            alt="leftArrow"
-            onClick={onArrowClick}
-            id={greyKitty}
-            src={leftArrow}
-          />
+          <form onKeyDown={leftPressDown}>
+            <input
+              type="image"
+              alt="leftArrow"
+              onClick={onArrowClick}
+              id={greyKitty}
+              src={leftArrow}
+            />
+          </form>
         </LeftArrow>
         <RightArrow>
           <img alt="brownKitty" src={brownKitty} />
-          <img
+          <input
+            type="image"
             alt="rightArrow"
             onClick={onArrowClick}
             id={brownKitty}
@@ -186,6 +201,9 @@ const LeftArrow = styled.div`
   img {
     width: 60px;
   }
+  input {
+    width: 60px;
+  }
 `;
 
 const RightArrow = styled.div`
@@ -196,6 +214,9 @@ const RightArrow = styled.div`
   top: 75%;
   left: 75%;
   img {
+    width: 60px;
+  }
+  input {
     width: 60px;
   }
 `;
