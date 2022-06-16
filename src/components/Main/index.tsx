@@ -35,8 +35,9 @@ export const Main = () => {
     setScore(score + 1);
   };
 
-  const leftPressDown = (e: React.KeyboardEvent<HTMLElement>) => {
+  const onKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
     const keyboard = e.key;
+
     if (keyboard) {
       if (keyboard === "ArrowLeft") {
         greyKitty === kittys[4] ? changeKittys() : console.log("다름~");
@@ -80,7 +81,7 @@ export const Main = () => {
       <ArrowWrap>
         <LeftArrow>
           <img alt="greyKitty" src={greyKitty} />
-          <form onKeyDown={leftPressDown}>
+          <form onKeyDown={onKeyDown}>
             <input
               type="image"
               alt="leftArrow"
@@ -92,13 +93,15 @@ export const Main = () => {
         </LeftArrow>
         <RightArrow>
           <img alt="brownKitty" src={brownKitty} />
-          <input
-            type="image"
-            alt="rightArrow"
-            onClick={onArrowClick}
-            id={brownKitty}
-            src={rightArrow}
-          />
+          <form onKeyDown={onKeyDown}>
+            <input
+              type="image"
+              alt="rightArrow"
+              onClick={onArrowClick}
+              id={brownKitty}
+              src={rightArrow}
+            />
+          </form>
         </RightArrow>
       </ArrowWrap>
     </Wrap>
@@ -203,6 +206,9 @@ const LeftArrow = styled.div`
   }
   input {
     width: 60px;
+    & :focus {
+      background-color: red;
+    }
   }
 `;
 
