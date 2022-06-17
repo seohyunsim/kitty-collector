@@ -35,6 +35,7 @@ export const Main = () => {
     setScore(score + 1);
   };
 
+  //화살표 키보드 이벤트
   const onKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
     const keyboard = e.key;
 
@@ -47,6 +48,7 @@ export const Main = () => {
     }
   };
 
+  //화살표 클릭 이벤트
   const onArrowClick = (e: React.MouseEvent<HTMLInputElement>) => {
     e.preventDefault();
     const kittyId = (e.target as HTMLImageElement).id;
