@@ -133,7 +133,7 @@ const Score = styled.div`
 
 const bounce = keyframes`
    from {
-    transform: scale(110%);
+    transform: scale(125%);
   } to {
     transform: scale(100%);
   }
