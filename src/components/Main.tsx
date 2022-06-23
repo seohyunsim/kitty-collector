@@ -1,6 +1,6 @@
 import styled, { keyframes } from "styled-components";
 import React, { useEffect, useState } from "react";
-import { greyKitty, brownKitty, leftArrow, rightArrow } from "./common";
+import { greyKitty, brownKitty, leftArrow, rightArrow } from ".";
 
 export const Main = () => {
   const randomKitty = [greyKitty, brownKitty];
