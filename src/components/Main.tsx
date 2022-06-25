@@ -1,5 +1,5 @@
 import styled, { keyframes } from "styled-components";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { greyKitty, brownKitty, leftArrow, rightArrow } from ".";
 
 export const Main = () => {
@@ -13,6 +13,11 @@ export const Main = () => {
     greyKitty,
     brownKitty,
   ]);
+  const [isOpenModal, setOpenModal] = useState<boolean>(false);
+
+  const onClickToggleModal = useCallback(() => {
+    setOpenModal(!isOpenModal);
+  }, [isOpenModal]);
 
   const getRandomState = (array: string[]) => {
     const random = Math.floor(Math.random() * array.length);
