@@ -1,11 +1,18 @@
 import React from "react";
 import "./App.css";
-import { Main } from "./components/Main";
+import { Main } from "./components/Main/Main";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Intro } from "./components/Intro/Intro";
 
 function App() {
   return (
     <div className="App">
-      <Main />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Intro />} />
+          <Route path="/main" element={<Main />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
