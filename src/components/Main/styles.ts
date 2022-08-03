@@ -2,14 +2,17 @@ import styled, { keyframes } from "styled-components";
 
 export const Wrap = styled.div`
   text-align: center;
+  height: 100vh;
   .title {
-    padding: 1em;
+    padding: 10px;
     h2 {
-      width: 45%;
-      border-radius: 15px;
+      font-size: 20px;
+      width: 40%;
+      /* border-radius: 15px; */
       padding: 12px;
-      background-color: #e6f3ca;
+      /* background-color: #e6f3ca; */
       margin: 0px auto;
+      border-bottom: 3px dotted darkgreen;
     }
   }
 `;
@@ -20,7 +23,6 @@ export const Score = styled.div`
   flex-direction: column;
   span {
     font-size: 20px;
-    padding: 5px;
   }
 `;
 
@@ -56,7 +58,7 @@ export const ScoreNum = styled.div`
 
 export const KittyGroup = styled.div`
   .Kittys {
-    padding: 2.5em;
+    padding: 1.5em;
     width: 40%;
     display: flex;
     flex-direction: column;
@@ -75,8 +77,23 @@ export const rotateKitty = keyframes`
 
 export const Kitty = styled.img`
   width: 90px;
-  margin-top: -23px;
-  animation: ${rotateKitty} 0.8s;
+  margin-top: -33px;
+  :nth-of-type(1) {
+    width: 65px;
+  }
+  :nth-of-type(2) {
+    width: 75px;
+  }
+  :nth-of-type(3) {
+    width: 95px;
+  }
+  :nth-of-type(4) {
+    width: 120px;
+  }
+  :nth-of-type(5) {
+    width: 150px;
+    animation: ${rotateKitty} 0.8s;
+  }
 `;
 
 export const ArrowWrap = styled.div`

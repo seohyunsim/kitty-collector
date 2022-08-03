@@ -1,7 +1,6 @@
 import styled, { keyframes } from "styled-components";
 
 export const Wrap = styled.div`
-  background-color: #6161615f;
   text-align: center;
   height: 100vh;
   display: flex;
@@ -62,24 +61,25 @@ export const ImageWrap = styled.div`
     width: 100px;
     margin: 0 15px;
   }
+  span {
+    position: absolute;
+    transform: rotate(20deg);
+  }
 `;
 
 export const Description = styled.div`
   flex-grow: 1;
   display: flex;
   align-items: center;
-  padding: 0 3em;
+  padding: 0 15px;
   span {
     font-size: 20px;
     font-weight: normal;
-    line-height: 2.5;
   }
 `;
 
 export const BtnWrap = styled.div`
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
+  flex-grow: 0.5;
   button {
     @font-face {
       font-family: "LeferiPoint-WhiteObliqueA";
@@ -92,8 +92,9 @@ export const BtnWrap = styled.div`
     font-family: "LeferiPoint-WhiteObliqueA";
     font-size: 40px;
     font-weight: 400;
+    background-color: darkseagreen;
     :hover {
-      background-color: #f5cb82;
+      background-color: goldenrod;
     }
   }
 `;
