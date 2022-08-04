@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled, { keyframes, css } from "styled-components";
 
 export const Wrap = styled.div`
   text-align: center;
@@ -8,9 +8,7 @@ export const Wrap = styled.div`
     h2 {
       font-size: 20px;
       width: 40%;
-      /* border-radius: 15px; */
       padding: 12px;
-      /* background-color: #e6f3ca; */
       margin: 0px auto;
       border-bottom: 3px dotted darkgreen;
     }
@@ -67,7 +65,7 @@ export const KittyGroup = styled.div`
   }
 `;
 
-export const rotateKitty = keyframes`
+export const rotateLeft = keyframes`
    from {
     transform : translateX(0);
   } to {
@@ -75,7 +73,17 @@ export const rotateKitty = keyframes`
   }
 `;
 
-export const Kitty = styled.img`
+export const rotateRight = keyframes`
+   from {
+    transform : translateX(0);
+  } to {
+    transform : translateX(3em);
+  }
+`;
+
+export const Kitty = styled.img<{
+  arrowLocation?: string;
+}>`
   width: 90px;
   margin-top: -33px;
   :nth-of-type(1) {
@@ -83,6 +91,7 @@ export const Kitty = styled.img`
   }
   :nth-of-type(2) {
     width: 75px;
+    margin-top: -23px;
   }
   :nth-of-type(3) {
     width: 95px;
@@ -92,7 +101,18 @@ export const Kitty = styled.img`
   }
   :nth-of-type(5) {
     width: 150px;
-    animation: ${rotateKitty} 0.8s;
+    margin-top: -38px;
+    ${({ arrowLocation }) => {
+      if (arrowLocation === "left") {
+        return css`
+          animation: ${rotateLeft} 0.5s;
+        `;
+      } else if (arrowLocation === "right") {
+        return css`
+          animation: ${rotateRight} 0.5s;
+        `;
+      }
+    }}
   }
 `;
 

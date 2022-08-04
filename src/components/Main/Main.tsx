@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import { clearTimeout } from "timers";
 import { greyKitty, brownKitty, leftArrow, rightArrow } from "../common";
 import {
   Wrap,
@@ -11,8 +12,13 @@ import {
   RightArrow,
 } from "./styles";
 
-export const Main = () => {
+interface Props {
+  arrowLocation?: string;
+}
+
+export const Main = ({ arrowLocation }: Props) => {
   const randomKitty = [greyKitty, brownKitty];
+  const [clickArrowLocation, setClickArrowLocation] = useState<string>("");
   const [score, setScore] = useState<number>(0);
   const [isIncrease, setIsIncrease] = useState<boolean>(false);
   const [kittys, setKittys] = useState<string[]>([
@@ -40,8 +46,10 @@ export const Main = () => {
 
     if (keyboard) {
       if (keyboard === "ArrowLeft") {
+        setClickArrowLocation("left");
         greyKitty === kittys[4] ? changeKittys() : console.log("다름~");
       } else if (keyboard === "ArrowRight") {
+        setClickArrowLocation("right");
         brownKitty === kittys[4] ? changeKittys() : console.log("다름~");
       }
     }
@@ -51,7 +59,13 @@ export const Main = () => {
     e.preventDefault();
     const kittyId = (e.target as HTMLImageElement).id;
 
-    kittyId === kittys[4] ? changeKittys() : console.log("다름~");
+    if (kittyId === greyKitty) setClickArrowLocation("left");
+    if (kittyId === brownKitty) setClickArrowLocation("right");
+
+    if (clickArrowLocation) {
+      kittyId === kittys[4] ? changeKittys() : console.log("다름~");
+      setClickArrowLocation("");
+    }
   };
 
   useEffect(() => {
@@ -74,7 +88,9 @@ export const Main = () => {
       <KittyGroup>
         <div className="Kittys">
           {kittys.map((url, idx) => {
-            return <Kitty key={idx} src={url} />;
+            return (
+              <Kitty arrowLocation={clickArrowLocation} key={idx} src={url} />
+            );
           })}
         </div>
       </KittyGroup>
