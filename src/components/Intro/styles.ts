@@ -93,6 +93,9 @@ export const BtnWrap = styled.div`
     font-size: 40px;
     font-weight: 400;
     background-color: darkseagreen;
+    -moz-appearance: none; /* Firefox */
+    -webkit-appearance: none; /* Safari and Chrome */
+    appearance: none;
     :hover {
       background-color: goldenrod;
     }

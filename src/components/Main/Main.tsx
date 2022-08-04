@@ -1,5 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { clearTimeout } from "timers";
+import React, { useEffect, useRef, useState } from "react";
 import { greyKitty, brownKitty, leftArrow, rightArrow } from "../common";
 import {
   Wrap,
@@ -12,13 +11,8 @@ import {
   RightArrow,
 } from "./styles";
 
-interface Props {
-  arrowLocation?: string;
-}
-
-export const Main = ({ arrowLocation }: Props) => {
+export const Main = () => {
   const randomKitty = [greyKitty, brownKitty];
-  const [clickArrowLocation, setClickArrowLocation] = useState<string>("");
   const [score, setScore] = useState<number>(0);
   const [isIncrease, setIsIncrease] = useState<boolean>(false);
   const [kittys, setKittys] = useState<string[]>([
@@ -28,6 +22,7 @@ export const Main = ({ arrowLocation }: Props) => {
     greyKitty,
     brownKitty,
   ]);
+  const ref = useRef<any>();
 
   const getRandomState = (array: string[]) => {
     const random = Math.floor(Math.random() * array.length);
@@ -43,29 +38,30 @@ export const Main = ({ arrowLocation }: Props) => {
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
     const keyboard = e.key;
+    const leftKey: string[] = ["ArrowLeft", "a", "A"];
+    const rightKey: string[] = ["ArrowRight", "l", "L"];
 
-    if (keyboard) {
-      if (keyboard === "ArrowLeft") {
-        setClickArrowLocation("left");
+    leftKey.forEach((el: string) => {
+      if (keyboard === el) {
         greyKitty === kittys[4] ? changeKittys() : console.log("다름~");
-      } else if (keyboard === "ArrowRight") {
-        setClickArrowLocation("right");
+      }
+    });
+    rightKey.forEach((el: string) => {
+      if (keyboard === el) {
         brownKitty === kittys[4] ? changeKittys() : console.log("다름~");
       }
-    }
+    });
   };
+
+  useEffect(() => {
+    ref.current.focus();
+  }, []);
 
   const onArrowClick = (e: React.MouseEvent<HTMLInputElement>) => {
     e.preventDefault();
     const kittyId = (e.target as HTMLImageElement).id;
 
-    if (kittyId === greyKitty) setClickArrowLocation("left");
-    if (kittyId === brownKitty) setClickArrowLocation("right");
-
-    if (clickArrowLocation) {
-      kittyId === kittys[4] ? changeKittys() : console.log("다름~");
-      setClickArrowLocation("");
-    }
+    kittyId === kittys[4] ? changeKittys() : console.log("다름~");
   };
 
   useEffect(() => {
@@ -75,7 +71,7 @@ export const Main = ({ arrowLocation }: Props) => {
   }, [score]);
 
   return (
-    <Wrap>
+    <Wrap ref={ref} tabIndex={-1} onKeyDown={onKeyDown}>
       <div className="title">
         <h2>kitty collector</h2>
       </div>
@@ -88,36 +84,30 @@ export const Main = ({ arrowLocation }: Props) => {
       <KittyGroup>
         <div className="Kittys">
           {kittys.map((url, idx) => {
-            return (
-              <Kitty arrowLocation={clickArrowLocation} key={idx} src={url} />
-            );
+            return <Kitty key={idx} src={url} />;
           })}
         </div>
       </KittyGroup>
       <ArrowWrap>
         <LeftArrow>
           <img alt="greyKitty" src={greyKitty} />
-          <form onKeyDown={onKeyDown}>
-            <input
-              type="image"
-              alt="leftArrow"
-              onClick={onArrowClick}
-              id={greyKitty}
-              src={leftArrow}
-            />
-          </form>
+          <input
+            type="image"
+            alt="leftArrow"
+            onClick={onArrowClick}
+            id={greyKitty}
+            src={leftArrow}
+          />
         </LeftArrow>
         <RightArrow>
           <img alt="brownKitty" src={brownKitty} />
-          <form onKeyDown={onKeyDown}>
-            <input
-              type="image"
-              alt="rightArrow"
-              onClick={onArrowClick}
-              id={brownKitty}
-              src={rightArrow}
-            />
-          </form>
+          <input
+            type="image"
+            alt="rightArrow"
+            onClick={onArrowClick}
+            id={brownKitty}
+            src={rightArrow}
+          />
         </RightArrow>
       </ArrowWrap>
     </Wrap>

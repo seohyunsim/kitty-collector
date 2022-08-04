@@ -4,16 +4,13 @@ import { brownKitty, greyKitty } from "../common";
 import { Wrap, Title, ImageWrap, Description, BtnWrap } from "./styles";
 
 export const Intro = () => {
+  const title = ["고", "양", "이", "컬", "렉", "터", "!"];
   return (
     <Wrap>
       <Title>
-        <span>고</span>
-        <span>양</span>
-        <span>이</span>
-        <span>컬</span>
-        <span>렉</span>
-        <span>터</span>
-        <span>!</span>
+        {title.map((str, idx) => {
+          return <span key={idx}>{str}</span>;
+        })}
       </Title>
       <ImageWrap>
         <img alt="greykitty" src={greyKitty} />

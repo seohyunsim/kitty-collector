@@ -3,6 +3,7 @@ import styled, { keyframes, css } from "styled-components";
 export const Wrap = styled.div`
   text-align: center;
   height: 100vh;
+  outline: none;
   .title {
     padding: 10px;
     h2 {
@@ -65,25 +66,7 @@ export const KittyGroup = styled.div`
   }
 `;
 
-export const rotateLeft = keyframes`
-   from {
-    transform : translateX(0);
-  } to {
-    transform : translateX(-3em);
-  }
-`;
-
-export const rotateRight = keyframes`
-   from {
-    transform : translateX(0);
-  } to {
-    transform : translateX(3em);
-  }
-`;
-
-export const Kitty = styled.img<{
-  arrowLocation?: string;
-}>`
+export const Kitty = styled.img`
   width: 90px;
   margin-top: -33px;
   :nth-of-type(1) {
@@ -102,17 +85,6 @@ export const Kitty = styled.img<{
   :nth-of-type(5) {
     width: 150px;
     margin-top: -38px;
-    ${({ arrowLocation }) => {
-      if (arrowLocation === "left") {
-        return css`
-          animation: ${rotateLeft} 0.5s;
-        `;
-      } else if (arrowLocation === "right") {
-        return css`
-          animation: ${rotateRight} 0.5s;
-        `;
-      }
-    }}
   }
 `;
 
