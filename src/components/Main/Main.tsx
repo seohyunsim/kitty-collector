@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import { greyKitty, brownKitty, leftArrow, rightArrow } from "../common";
 import {
   Wrap,
@@ -9,10 +9,15 @@ import {
   ArrowWrap,
   LeftArrow,
   RightArrow,
+  Sign,
 } from "./styles";
+import { BsArrowLeftSquare, BsArrowRightSquare } from "react-icons/bs";
+import Modal from "../common/Modal";
+import { Result } from "../Result/Result";
 
 export const Main = () => {
   const randomKitty = [greyKitty, brownKitty];
+  const [isOpenModal, setOpenModal] = useState<boolean>(false);
   const [score, setScore] = useState<number>(0);
   const [isIncrease, setIsIncrease] = useState<boolean>(false);
   const [kittys, setKittys] = useState<string[]>([
@@ -23,6 +28,10 @@ export const Main = () => {
     brownKitty,
   ]);
   const ref = useRef<any>();
+
+  const onClickToggleModal = useCallback(() => {
+    setOpenModal(!isOpenModal);
+  }, [isOpenModal]);
 
   const getRandomState = (array: string[]) => {
     const random = Math.floor(Math.random() * array.length);
@@ -73,8 +82,27 @@ export const Main = () => {
   return (
     <Wrap ref={ref} tabIndex={-1} onKeyDown={onKeyDown}>
       <div className="title">
-        <h2>kitty collector</h2>
+        {isOpenModal && (
+          <Modal onClickToggleModal={onClickToggleModal}>
+            <Result />
+          </Modal>
+        )}
+        <h2 onClick={onClickToggleModal}>kitty collector</h2>
       </div>
+      <Sign>
+        <p className="title">웹 사용자를 위한 Tip !</p>
+        <span>
+          마우스로 클릭 🖱 도 가능하지만,
+          <br />
+          키보드 사용도 가능해요
+        </span>
+        <br />
+        <span>
+          왼쪽 방향키 : <BsArrowLeftSquare />, A
+          <br />
+          오른쪽 방향키 : <BsArrowRightSquare />, L
+        </span>
+      </Sign>
       <Score>
         <ScoreNum>
           <div className={isIncrease ? "upScore" : "default"}>{score}</div>

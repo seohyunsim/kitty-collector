@@ -1,30 +1,19 @@
 import React, { PropsWithChildren } from "react";
 import styled from "styled-components";
-import { Portal } from "./Portal";
 
 interface ModalDefaultType {
   onClickToggleModal: () => void;
 }
 
-function Modal({
-  onClickToggleModal,
-  children,
-}: PropsWithChildren<ModalDefaultType>) {
+function Modal({ children }: PropsWithChildren<ModalDefaultType>) {
   return (
-    <Portal>
-      <ModalContainer>
-        <DialogBox>{children}</DialogBox>
-        <Backdrop
-          onClick={(e: React.MouseEvent) => {
-            e.preventDefault();
-
-            if (onClickToggleModal) {
-              onClickToggleModal();
-            }
-          }}
-        />
-      </ModalContainer>
-    </Portal>
+    <ModalContainer>
+      <DialogBox>
+        <GameOver>GAME OVER</GameOver>
+        {children}
+      </DialogBox>
+      <Backdrop />
+    </ModalContainer>
   );
 }
 
@@ -38,20 +27,29 @@ const ModalContainer = styled.div`
   top: 0;
   left: 0;
   right: 0;
+  z-index: 2;
 `;
 
-const DialogBox = styled.dialog`
-  width: 500px;
-  height: 600px;
+const DialogBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: none;
-  border-radius: 3px;
-  box-shadow: 0 0 30px rgba(30, 30, 30, 0.185);
-  box-sizing: border-box;
-  background-color: white;
   z-index: 999;
+`;
+
+const GameOver = styled.span`
+  @font-face {
+    font-family: "HBIOS-SYS";
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2207-01@1.0/HBIOS-SYS.woff2")
+      format("woff2");
+  }
+  font-family: "HBIOS-SYS";
+  font-size: 140px;
+  font-weight: 800;
+  color: #c99999;
+  @media screen and (max-width: 768px) {
+    font-size: 18vw;
+  }
 `;
 
 const Backdrop = styled.div`
@@ -62,7 +60,7 @@ const Backdrop = styled.div`
   left: 0;
   right: 0;
   z-index: 99;
-  background-color: rgba(0, 0, 0, 0.267);
+  background-color: rgba(0, 0, 0, 0.714);
 `;
 
 export default Modal;

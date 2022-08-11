@@ -40,8 +40,6 @@ export const ScoreNum = styled.div`
     font-family: "SDSamliphopangche_Outline";
     src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/SDSamliphopangche_Outline.woff")
       format("woff");
-    font-weight: normal;
-    font-style: normal;
   }
   font-size: 85px;
   font-family: "SDSamliphopangche_Outline";
@@ -100,6 +98,7 @@ export const LeftArrow = styled.div`
   flex-direction: column;
   align-items: center;
   position: absolute;
+  z-index: 1;
   top: 75%;
   right: 75%;
   img {
@@ -125,5 +124,24 @@ export const RightArrow = styled.div`
   }
   input {
     width: 60px;
+  }
+`;
+
+export const Sign = styled.div`
+  height: 20em;
+  text-align: center;
+  position: absolute;
+  left: 80px;
+  display: flex;
+  flex-direction: column;
+  .title {
+    font-size: 30px;
+    font-weight: 600;
+  }
+  span {
+    font-size: 20px;
+  }
+  @media screen and (max-width: 900px) {
+    display: none;
   }
 `;
