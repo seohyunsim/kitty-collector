@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { greyKitty, brownKitty, leftArrow, rightArrow } from "../common";
 import {
   Wrap,
@@ -14,8 +14,13 @@ import {
 import { BsArrowLeftSquare, BsArrowRightSquare } from "react-icons/bs";
 import Modal from "../common/Modal";
 import { Result } from "../Result/Result";
+import Delayed from "../common/Delayed";
 
-export const Main = () => {
+interface props {
+  finalScore: number;
+}
+
+export const Main = ({ finalScore }: props) => {
   const randomKitty = [greyKitty, brownKitty];
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
   const [score, setScore] = useState<number>(0);
@@ -29,10 +34,6 @@ export const Main = () => {
   ]);
   const ref = useRef<any>();
 
-  const onClickToggleModal = useCallback(() => {
-    setOpenModal(!isOpenModal);
-  }, [isOpenModal]);
-
   const getRandomState = (array: string[]) => {
     const random = Math.floor(Math.random() * array.length);
     return array[random];
@@ -40,6 +41,9 @@ export const Main = () => {
   const pushNewState = getRandomState(randomKitty);
 
   const changeKittys = () => {
+    const audio = new Audio("bgm/MP_Woosh.mp3");
+    audio.play();
+
     kittys.splice(4, 1);
     kittys.unshift(pushNewState);
     setScore(score + 1);
@@ -52,12 +56,12 @@ export const Main = () => {
 
     leftKey.forEach((el: string) => {
       if (keyboard === el) {
-        greyKitty === kittys[4] ? changeKittys() : console.log("다름~");
+        greyKitty === kittys[4] ? changeKittys() : gameOver();
       }
     });
     rightKey.forEach((el: string) => {
       if (keyboard === el) {
-        brownKitty === kittys[4] ? changeKittys() : console.log("다름~");
+        brownKitty === kittys[4] ? changeKittys() : gameOver();
       }
     });
   };
@@ -70,7 +74,7 @@ export const Main = () => {
     e.preventDefault();
     const kittyId = (e.target as HTMLImageElement).id;
 
-    kittyId === kittys[4] ? changeKittys() : console.log("다름~");
+    kittyId === kittys[4] ? changeKittys() : gameOver();
   };
 
   useEffect(() => {
@@ -79,15 +83,30 @@ export const Main = () => {
     else if (score % 10 !== 0) setIsIncrease(false);
   }, [score]);
 
+  const gameOver = () => {
+    if (kittys[4] === greyKitty)
+      kittys.splice(4, 1, "kittys/surpriseGreyKitty.png");
+    if (kittys[4] === brownKitty)
+      kittys.splice(4, 1, "kittys/surpriseBrownKitty.png");
+
+    const audio = new Audio("bgm/MP_Jab.mp3");
+    audio.play();
+
+    setOpenModal(true);
+    finalScore = score;
+  };
+
   return (
     <Wrap ref={ref} tabIndex={-1} onKeyDown={onKeyDown}>
-      <div className="title">
-        {isOpenModal && (
-          <Modal onClickToggleModal={onClickToggleModal}>
-            <Result />
+      {isOpenModal && (
+        <Delayed waitBeforeShow={1000}>
+          <Modal>
+            <Result finalScore={score} />
           </Modal>
-        )}
-        <h2 onClick={onClickToggleModal}>kitty collector</h2>
+        </Delayed>
+      )}
+      <div className="title">
+        <h2>kitty collector</h2>
       </div>
       <Sign>
         <p className="title">웹 사용자를 위한 Tip !</p>

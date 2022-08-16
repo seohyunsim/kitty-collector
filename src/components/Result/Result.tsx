@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import { Wrap, RestartBtn } from "./styles";
 
-export const Result = () => {
-  const [score, setScore] = useState<number>(0);
+interface props {
+  finalScore: number;
+}
+
+export const Result = ({ finalScore }: props) => {
   const onClick = () => {
     window.location.reload();
   };
   return (
     <Wrap>
       <p>당신의 점수는 :</p>
-      <span>{score}</span>
+      <span>{finalScore}</span>
       <RestartBtn onClick={onClick}>다시 해보기</RestartBtn>
     </Wrap>
   );

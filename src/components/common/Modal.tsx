@@ -1,16 +1,14 @@
-import React, { PropsWithChildren } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import Delayed from "./Delayed";
 
-interface ModalDefaultType {
-  onClickToggleModal: () => void;
-}
-
-function Modal({ children }: PropsWithChildren<ModalDefaultType>) {
+function Modal({ children }: any) {
+  useEffect(() => {}, []);
   return (
     <ModalContainer>
       <DialogBox>
         <GameOver>GAME OVER</GameOver>
-        {children}
+        <Delayed waitBeforeShow={2500}>{children}</Delayed>
       </DialogBox>
       <Backdrop />
     </ModalContainer>

@@ -10,7 +10,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Intro />} />
-          <Route path="/main" element={<Main />} />
+          <Route path="/main" element={<Main finalScore={0} />} />
         </Routes>
       </BrowserRouter>
     </div>
