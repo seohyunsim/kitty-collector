@@ -51,8 +51,8 @@ export const Main = ({ finalScore }: props) => {
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
     const keyboard = e.key;
-    const leftKey: string[] = ["ArrowLeft", "a", "A"];
-    const rightKey: string[] = ["ArrowRight", "l", "L"];
+    const leftKey: string[] = ["ArrowLeft", "a", "A", "ㅁ"];
+    const rightKey: string[] = ["ArrowRight", "l", "L", "ㅣ"];
 
     leftKey.forEach((el: string) => {
       if (keyboard === el) {
