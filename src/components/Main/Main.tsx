@@ -41,9 +41,6 @@ export const Main = ({ finalScore }: props) => {
   const pushNewState = getRandomState(randomKitty);
 
   const changeKittys = () => {
-    const audio = new Audio("bgm/MP_Woosh.mp3");
-    audio.play();
-
     kittys.splice(4, 1);
     kittys.unshift(pushNewState);
     setScore(score + 1);
@@ -88,9 +85,6 @@ export const Main = ({ finalScore }: props) => {
       kittys.splice(4, 1, "kittys/surpriseGreyKitty.png");
     if (kittys[4] === brownKitty)
       kittys.splice(4, 1, "kittys/surpriseBrownKitty.png");
-
-    const audio = new Audio("bgm/MP_Jab.mp3");
-    audio.play();
 
     setOpenModal(true);
     finalScore = score;
