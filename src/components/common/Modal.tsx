@@ -8,7 +8,7 @@ function Modal({ children }: any) {
     <ModalContainer>
       <DialogBox>
         <GameOver>GAME OVER</GameOver>
-        <Delayed waitBeforeShow={2500}>{children}</Delayed>
+        <Delayed waitBeforeShow={1500}>{children}</Delayed>
       </DialogBox>
       <Backdrop />
     </ModalContainer>
